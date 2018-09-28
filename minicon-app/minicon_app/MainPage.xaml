@@ -2,12 +2,100 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:minicon_app"
+             xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms"
              x:Class="minicon_app.MainPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Text="Connect" Command="{Binding ConnectCommand}"
+                        VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Grid.Column="1" Text="{Binding TextConnection}"
+                       VerticalOptions="Center" HorizontalOptions="Start" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Text="{Binding ZValueText}" 
+                       HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Slider x:Name="sliderZ" Grid.Column ="2" Value="{Binding ZValue}" />
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Text="{Binding PeriodText}" 
+                       HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Slider x:Name="sliderPeriod" Grid.Column ="2" 
+                        Value="{Binding Period}" ValueChanged="sliderPeriod_ValueChanged" />
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" x:Name="spinCCW" Source="spinccw.png"
+                       HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image.Effects>
+                        <tt:TouchEffect Capture="True" TouchAction="OnTouchCCW"/>
+                    </Image.Effects>
+                </Image>
+                <Image Grid.Column="1" x:Name="spinCW" Source="spincw.png" 
+                       HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image.Effects>
+                        <tt:TouchEffect Capture="True" TouchAction="OnTouchCW"/>
+                    </Image.Effects>
+                </Image>
+            </Grid>
+            <AbsoluteLayout Grid.Row="4" HeightRequest="300" WidthRequest="300" HorizontalOptions="Center">
+                <Image Source="circle.png" SizeChanged="ImageSizeChanged" HorizontalOptions="Center">
+                    <Image.Effects>
+                        <tt:TouchEffect Capture="True" TouchAction="OnTouch1"/>
+                    </Image.Effects>
+                </Image>
+                <Image Source="circle2.png" x:Name="circle2">
+                    <Image.Effects>
+                        <tt:TouchEffect Capture="True" TouchAction="OnTouch2"/>
+                    </Image.Effects>
+                </Image>
+            </AbsoluteLayout>
+            <Grid Grid.Row="5"></Grid>
+            <AbsoluteLayout Grid.Row="6" WidthRequest="300" HorizontalOptions="Center">
+                <Image Source="bar.png" SizeChanged="ImageSizeChangedSpin" 
+                       HorizontalOptions="Center">
+                    <Image.Effects>
+                        <tt:TouchEffect Capture="True" TouchAction="OnTouchSpin"/>
+                    </Image.Effects>
+                </Image>
+                <Image Source="circle2.png" x:Name="circle3">
+                    <Image.Effects>
+                        <tt:TouchEffect Capture="True" TouchAction="OnTouch3"/>
+                    </Image.Effects>
+                </Image>
+            </AbsoluteLayout>
+            <ScrollView Grid.Row="7">
+                <Label Text="{Binding TextRx}"/>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
